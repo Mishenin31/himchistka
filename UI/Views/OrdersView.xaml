@@ -1,0 +1,49 @@
+<UserControl x:Class="Himchistka.UI.Views.OrdersView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:core="clr-namespace:Himchistka.Core.Enums"
+             xmlns:conv="clr-namespace:Himchistka.UI.Converters">
+    <UserControl.Resources>
+        <conv:StatusToColorConverter x:Key="StatusColor" />
+        <conv:BoolToVisibilityConverter x:Key="BoolToVisibility" />
+    </UserControl.Resources>
+    <DockPanel>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0,0,0,10">
+            <TextBox Width="220" Margin="0,0,8,0" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
+            <ComboBox Width="170" SelectedItem="{Binding SelectedStatus}">
+                <core:OrderStatus>Accepted</core:OrderStatus>
+                <core:OrderStatus>InProgress</core:OrderStatus>
+                <core:OrderStatus>Ready</core:OrderStatus>
+                <core:OrderStatus>Issued</core:OrderStatus>
+                <core:OrderStatus>Cancelled</core:OrderStatus>
+            </ComboBox>
+            <DatePicker Margin="8,0,0,0" SelectedDate="{Binding StartDate}" />
+            <DatePicker Margin="8,0,0,0" SelectedDate="{Binding EndDate}" />
+            <Button Content="Фильтр" Command="{Binding FilterCommand}" />
+        </StackPanel>
+
+        <DataGrid ItemsSource="{Binding Orders}" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="№" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="Клиент" Binding="{Binding Client.FullName}" Width="*"/>
+                <DataGridTextColumn Header="Сумма" Binding="{Binding TotalAmount}"/>
+                <DataGridTemplateColumn Header="Статус">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Border Background="{Binding Status, Converter={StaticResource StatusColor}}" CornerRadius="8" Padding="8,3">
+                                <TextBlock Text="{Binding Status}" Foreground="Black"/>
+                            </Border>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Срочно">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="❗" Foreground="Red" Visibility="{Binding OrderItems[0].IsUrgent, Converter={StaticResource BoolToVisibility}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</UserControl>

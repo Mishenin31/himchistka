@@ -1,0 +1,17 @@
+<Window x:Class="Himchistka.UI.Views.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Вход" Height="380" Width="500">
+    <Grid Margin="30">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="🧺 Вход в систему" FontSize="24" FontWeight="Bold"/>
+        <TextBox Grid.Row="1" Margin="0,20,0,0" Height="34" />
+        <PasswordBox Grid.Row="2" Margin="0,12,0,0" Height="34" />
+        <Button Grid.Row="3" Margin="0,20,0,0" Content="Войти" Height="38"/>
+    </Grid>
+</Window>
