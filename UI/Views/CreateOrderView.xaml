@@ -1,0 +1,34 @@
+<UserControl x:Class="Himchistka.UI.Views.CreateOrderView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <GroupBox Header="Клиент и услуги" Grid.Column="0" Margin="8">
+            <StackPanel Margin="8">
+                <TextBox Text="{Binding ClientSearch}" />
+                <Button Content="Найти клиента" />
+                <ListBox ItemsSource="{Binding Services}" DisplayMemberPath="Name" Height="420" />
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Header="Корзина" Grid.Column="1" Margin="8">
+            <DataGrid ItemsSource="{Binding Cart}" AutoGenerateColumns="True" />
+        </GroupBox>
+
+        <GroupBox Header="Итог" Grid.Column="2" Margin="8">
+            <StackPanel Margin="8">
+                <TextBlock Text="Старая цена:" FontWeight="Bold" />
+                <TextBlock Text="{Binding Total}" TextDecorations="Strikethrough" Opacity="0.7" />
+                <TextBlock Text="Цена со скидкой:" FontWeight="Bold" Margin="0,12,0,0"/>
+                <TextBlock Text="{Binding Total}" FontSize="24" Foreground="Green" />
+                <TextBox Margin="0,12,0,0" ToolTip="Скидка %" />
+                <Button Content="Сохранить заказ" Command="{Binding SaveOrderCommand}" Margin="0,16,0,0"/>
+            </StackPanel>
+        </GroupBox>
+    </Grid>
+</UserControl>
